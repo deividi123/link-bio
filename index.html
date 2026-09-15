@@ -151,7 +151,7 @@
       margin-bottom: 28px;
     }
  
-    /* — Container do vídeo 9:16 — */
+    /* — Container do vídeo — */
     .video-wrap {
       position: relative;
       width: 100%;
@@ -161,28 +161,16 @@
       background: #000;
       box-shadow: 0 0 0 1px rgba(184,150,46,0.18), 0 32px 80px rgba(0,0,0,0.7);
     }
-    /* Container visual em 9:16 */
     .video-wrap::before {
       content: '';
       display: block;
-      padding-top: 177.78%;
+      padding-top: 177.78%; /* 9:16 */
     }
-    /*
-      YouTube sempre entrega embed em 16:9.
-      Escalamos 3.16x para preencher o container 9:16 sem barras.
-      overflow:hidden no pai corta o excesso lateral.
-      O conteúdo central do Shorts permanece visível.
-    */
     .video-wrap iframe {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 56.25%;
-      transform: translate(-50%, -50%) scale(3.16);
-      transform-origin: center center;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       border: none;
-      pointer-events: auto;
     }
  
     /* — Botão de som flutuante — */
@@ -370,9 +358,9 @@
     const logoWrap     = document.getElementById('logoWrap');
     const logoImg      = document.getElementById('logoImg');
  
-    let ctaShown = false;
-    let player   = null;
-    let ticker   = null;
+    let ctaShown  = false;
+    let player    = null;
+    let ticker    = null;
     let startTime = null;
  
     // Mostra logo apenas se o arquivo existir
@@ -417,7 +405,6 @@
       }, 500);
     }
  
-    // Fallback para file:// (sem API cross-origin)
     if (window.location.protocol === 'file:') {
       startTicker(() => (Date.now() - startTime) / 1000);
     } else {
@@ -432,7 +419,7 @@
               try { e.target.playVideo(); } catch(err) {}
             },
             onStateChange(e) {
-              if (e.data === 1) { // PLAYING
+              if (e.data === 1) {
                 startTicker(() => {
                   try { return player.getCurrentTime() || 0; } catch(e) { return 0; }
                 });
