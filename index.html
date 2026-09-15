@@ -94,10 +94,9 @@
   }
   </script>
 
-
-  <style>
+<style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+ 
     :root {
       --gold:      #B8962E;
       --gold-light:#D4AF50;
@@ -105,7 +104,7 @@
       --off-white: #F0EDE8;
       --muted:     #888880;
     }
-
+ 
     html, body {
       height: 100%;
       background: var(--black);
@@ -113,7 +112,7 @@
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
     }
-
+ 
     body {
       display: flex;
       flex-direction: column;
@@ -122,11 +121,11 @@
       min-height: 100svh;
       padding: 24px 16px 40px;
     }
-
+ 
     /* — Logo — */
     .logo-wrap { margin-bottom: 36px; }
     .logo-wrap img { height: 48px; width: auto; display: block; }
-
+ 
     /* — H1 — */
     .headline {
       font-family: 'Barlow Condensed', sans-serif;
@@ -139,7 +138,7 @@
       margin-bottom: 14px;
     }
     .headline em { font-style: normal; color: var(--gold-light); }
-
+ 
     /* — Subheadline — */
     .subheadline {
       font-family: 'Inter', sans-serif;
@@ -151,7 +150,7 @@
       max-width: 600px;
       margin-bottom: 28px;
     }
-
+ 
     /* — Container do vídeo 9:16 — */
     .video-wrap {
       position: relative;
@@ -185,7 +184,7 @@
       border: none;
       pointer-events: auto;
     }
-
+ 
     /* — Botão de som flutuante — */
     .sound-btn {
       position: absolute;
@@ -214,12 +213,12 @@
     }
     .sound-btn:hover  { background: rgba(184,150,46,0.2); }
     .sound-btn.hidden { opacity: 0; pointer-events: none; }
-
+ 
     @keyframes pulse-border {
       0%, 100% { box-shadow: 0 0 0 0   rgba(184,150,46,0); }
       50%       { box-shadow: 0 0 0 4px rgba(184,150,46,0.18); }
     }
-
+ 
     /* — Barra de progresso — */
     .progress-bar {
       width: 100%;
@@ -237,7 +236,7 @@
       background: var(--gold);
       transition: width 0.25s linear;
     }
-
+ 
     /* — CTA — */
     .cta-wrap {
       margin-top: 36px;
@@ -276,7 +275,7 @@
     .cta-btn:active { transform: translateY(0); }
     .cta-btn svg    { flex-shrink: 0; }
     .cta-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
-
+ 
     /* — Footer — */
     footer {
       margin-top: 56px;
@@ -285,7 +284,7 @@
       text-align: center;
       letter-spacing: 0.04em;
     }
-
+ 
     /* — Responsivo — */
     @media (max-width: 480px) {
       .headline { font-size: 26px; }
@@ -298,22 +297,22 @@
   </style>
 </head>
 <body>
-
+ 
   <!-- Logo — coloque o arquivo em assets/logo.png -->
   <div class="logo-wrap" id="logoWrap" style="display:none;">
     <img id="logoImg" src="assets/logo.png" alt="Nutri Deividi S.F.">
   </div>
-
+ 
   <h1 class="headline">
     Alcance um físico <em>mais estético</em>,<br>
     mesmo que sua rotina seja corrida
   </h1>
-
+ 
   <p class="subheadline">
     Assista a essa apresentação curta e entenda como você pode alcançar
     o físico que sempre quis, com a ajuda do meu acompanhamento 100% online
   </p>
-
+ 
   <div class="video-wrap" id="videoWrap">
     <iframe
       id="yt"
@@ -322,7 +321,7 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen>
     </iframe>
-
+ 
     <button class="sound-btn" id="soundBtn" aria-label="Ativar som">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
            stroke="currentColor" stroke-width="2"
@@ -334,11 +333,11 @@
       Toque para ativar o som
     </button>
   </div>
-
+ 
   <div class="progress-bar" id="progressBar">
     <div class="progress-fill" id="progressFill"></div>
   </div>
-
+ 
   <div class="cta-wrap" id="ctaWrap">
     <a class="cta-btn"
        href="https://api.whatsapp.com/send/?phone=5517991095961&text=Vim+pelo+insta%2C+quero+melhorar+meu+f%C3%ADsico%2C+pode+me+falar+mais+sobre+seu+acompanhamento%3F&type=phone_number&app_absent=0"
@@ -350,12 +349,12 @@
     </a>
     <p class="cta-sub">Resposta rápida via WhatsApp</p>
   </div>
-
+ 
   <footer>
     Nutricionista Deividi S.F. &nbsp;·&nbsp;
     Desde 2017 melhorando o físico e saúde de atletas e pessoas comuns
   </footer>
-
+ 
   <script>
     // ═══════════════════════════════════════════════
     // CONFIGURAÇÃO
@@ -363,19 +362,19 @@
     const VIDEO_DURATION_S = 102;   // duração em segundos
     const TRIGGER_AT       = 0.30;  // CTA aparece aos 30% do vídeo
     // ═══════════════════════════════════════════════
-
+ 
     const ctaWrap      = document.getElementById('ctaWrap');
     const progressBar  = document.getElementById('progressBar');
     const progressFill = document.getElementById('progressFill');
     const soundBtn     = document.getElementById('soundBtn');
     const logoWrap     = document.getElementById('logoWrap');
     const logoImg      = document.getElementById('logoImg');
-
+ 
     let ctaShown = false;
     let player   = null;
     let ticker   = null;
     let startTime = null;
-
+ 
     // Mostra logo apenas se o arquivo existir
     if (logoImg && logoWrap) {
       const testImg = new Image();
@@ -383,13 +382,13 @@
       testImg.onerror = () => logoWrap.style.display = 'none';
       testImg.src = logoImg.src;
     }
-
+ 
     function showCTA() {
       if (ctaShown) return;
       ctaShown = true;
       ctaWrap.classList.add('visible');
     }
-
+ 
     function startTicker(getTime) {
       if (ticker) return;
       progressBar.classList.add('active');
@@ -402,7 +401,7 @@
         if (t >= VIDEO_DURATION_S) clearInterval(ticker);
       }, 250);
     }
-
+ 
     // Botão de som
     soundBtn.addEventListener('click', () => {
       if (player && typeof player.unMute === 'function') {
@@ -410,14 +409,14 @@
       }
       soundBtn.classList.add('hidden');
     });
-
+ 
     function checkMuteState() {
       const check = setInterval(() => {
         if (!player || typeof player.isMuted !== 'function') return;
         if (!player.isMuted()) { soundBtn.classList.add('hidden'); clearInterval(check); }
       }, 500);
     }
-
+ 
     // Fallback para file:// (sem API cross-origin)
     if (window.location.protocol === 'file:') {
       startTicker(() => (Date.now() - startTime) / 1000);
@@ -425,7 +424,7 @@
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
       document.head.appendChild(tag);
-
+ 
       window.onYouTubeIframeAPIReady = function () {
         player = new YT.Player('yt', {
           events: {
@@ -447,3 +446,4 @@
   </script>
 </body>
 </html>
+ 
